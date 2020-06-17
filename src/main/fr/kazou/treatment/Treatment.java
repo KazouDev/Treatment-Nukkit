@@ -12,9 +12,10 @@ import java.util.Map;
 public class Treatment extends PluginBase {
     Config config;
     public static String prefix = "§c[§6TREATMENT§c]§f";
-    public int itema;
-    public int itemb;
+    public String[] itema;
+    public String[] itemb;
     public boolean msg_no_item;
+    public int time;
     public static Treatment instance;
 
     public Map<String, Object> language = new HashMap<>();
@@ -38,6 +39,18 @@ public class Treatment extends PluginBase {
     public void onEnable() {
         config = new Config(getDataFolder() + "/config.yml", Config.YAML);
         instance = this;
+
+        if(config.getInt("time") == 0){
+            config.set("time", 5);
+        }
+        if(config.get("item_a") instanceof Integer){
+            config.set("item_a", config.getInt("item_a")+":0:1");
+        }
+        if(config.get("item_b") instanceof Integer){
+            config.set("item_b", config.getInt("item_b")+":0:1");
+        }
+        config.save();
+
         prefix = config.getString("prefix");
         language = config.getSection("messages").getAllMap();
         msg_no_item = getConfig().getBoolean("msg_no_item");
@@ -52,15 +65,16 @@ public class Treatment extends PluginBase {
 
     @Override
     public void onDisable() {
-
     }
+
     public void setupConfig(){
         String[] p1 = getConfig().getSection("Area").getString("p1").split(":");
         String[] p2 = getConfig().getSection("Area").getString("p2").split(":");
 
         prefix = config.getString("prefix");
-        itema = getConfig().getInt("item_a");
-        itemb = getConfig().getInt("item_b");
+        itema = getConfig().getString("item_a").split(":");
+        itemb = getConfig().getString("item_b").split(":");
+        time = getConfig().getInt("time");
 
         minX = Math.min(Integer.parseInt(p1[0]), Integer.parseInt(p2[0]));
         maxX = Math.max(Integer.parseInt(p1[0]), Integer.parseInt(p2[0]));
