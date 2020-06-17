@@ -1,0 +1,14 @@
+prefix: "§c[§6TREATMENT§c]§f"
+item_a: 399 #STAR
+item_b: 264 #DIAMOND
+msg_no_item: true
+messages:
+  treatment_cancelled: "Traitement Annulé."
+  start_treatment: "Reste 5 secondes pour transformé ton étoile en diamand !"
+  end_treatment: "Traitement réussi."
+  no_item_hotbar: "§cVous devez avoir une étoile dans votre HotBar."
+  item_moved: "Tu n'a plus d'étoile dans ta mains."
+
+Area:
+  p1: "0:0:world"
+  p2: "10:10:world"

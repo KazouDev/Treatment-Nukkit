@@ -1,0 +1,6 @@
+name: Treatment
+version: "1.0"
+main: fr.kazou.treatment.Treatment
+api:  ["1.0.0"]
+author: Kazou
+description: Treatment Plugin
