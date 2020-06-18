@@ -13,7 +13,7 @@ import java.util.concurrent.TransferQueue;
 public class treatmentCommand extends Command {
     public treatmentCommand() {
         super("treatment");
-        setDescription("/t pos <1/2/get> / item <a/b> / reload");
+        setDescription("/t pos <1/2/get> / item <a/b> / time <set/get> (time) / reload");
         setAliases(new String[]{"t"});
         this.commandParameters.put("default", new CommandParameter[]{
                 new CommandParameter("pos|item|reload|time", CommandParamType.STRING, false),
