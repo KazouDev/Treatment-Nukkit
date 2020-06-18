@@ -20,9 +20,9 @@ public class TreatmentTask extends PluginTask<Treatment> {
         }
         if(Treatment.getInstance().isTreatment(p)){
             if(!TreatmentTaskTransform.isWaiting(p)){
-                int id = Integer.parseInt(Treatment.getInstance().itema[0]);
+                String[] item = Treatment.getInstance().itema;
                 for(int s = 0; s<=8; s++){
-                    if(p.getInventory().getItem(s).getId() == id){
+                    if(p.getInventory().getItem(s).getId() == Integer.parseInt(item[0]) && p.getInventory().getItem(s).getDamage() == Integer.parseInt(item[1]) && p.getInventory().getItem(s).getCount() >= Integer.parseInt(item[2])){
                         p.sendMessage(Treatment.getInstance().getLanguage("start_treatment").replace("[time]", String.valueOf(Treatment.getInstance().time)));
                         Treatment.getInstance().getServer().getScheduler().scheduleRepeatingTask(new TreatmentTaskTransform(p, s), 20);
                         return;

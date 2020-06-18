@@ -47,7 +47,7 @@ public class TreatmentTaskTransform extends PluginTask<Treatment> {
             } else {
                 if(p.getInventory().canAddItem(Item.get(Integer.parseInt(item[0]), Integer.parseInt(item[1]), Integer.parseInt(item[2])))){
                     if(p.getInventory().getItem(slot).getCount() >= 2){
-                        p.getInventory().setItem(slot, Item.get(p.getInventory().getItem(slot).getId(),p.getInventory().getItem(slot).getDamage(), p.getInventory().getItem(slot).getCount() - 1));
+                        p.getInventory().setItem(slot, Item.get(p.getInventory().getItem(slot).getId(), p.getInventory().getItem(slot).getDamage(), p.getInventory().getItem(slot).getCount() - Integer.parseInt(item[2])));
                         p.getInventory().addItem(Item.get(Integer.parseInt(item[0]), Integer.parseInt(item[1]), Integer.parseInt(item[2])));
                         p.sendMessage(Treatment.getInstance().getLanguage("end_treatment"));
                         inWaiting.remove(p);
