@@ -13,8 +13,9 @@ public class TreatmentTaskTransform extends PluginTask<Treatment> {
     private int delay = 0;
     private int slot;
     private static ArrayList<Player> inWaiting = new ArrayList<>();
-    int id = Integer.parseInt(Treatment.getInstance().itema[0]);
+    String[] id = Treatment.getInstance().itema;
     String[] item = Treatment.getInstance().itemb;
+
     public TreatmentTaskTransform(Player p, int slot) {
         super(Treatment.getInstance());
         this.p = p;
@@ -25,7 +26,7 @@ public class TreatmentTaskTransform extends PluginTask<Treatment> {
     @Override
     public void onRun(int i) {
         if(delay < Treatment.getInstance().time){
-           if(!Treatment.getInstance().isTreatment(p) || p.getInventory().getItem(slot).getId() != id){
+           if(!Treatment.getInstance().isTreatment(p) || p.getInventory().getItem(slot).getId() != Integer.parseInt(id[0])){
                p.sendMessage(Treatment.getInstance().getLanguage("treatment_cancelled"));
                inWaiting.remove(p);
                this.cancel();
@@ -40,14 +41,14 @@ public class TreatmentTaskTransform extends PluginTask<Treatment> {
                     this.cancel();
                     return;
                 }
-            if(p.getInventory().getItem(slot).getId() != id){
+            if(p.getInventory().getItem(slot).getId() != Integer.parseInt(id[0])){
                 p.sendMessage(Treatment.getInstance().getLanguage("item_moved"));
                 inWaiting.remove(p);
                 this.cancel();
             } else {
-                if(p.getInventory().canAddItem(Item.get(Integer.parseInt(item[0]), Integer.parseInt(item[1]), Integer.parseInt(item[2])))){
+                if(p.getInventory().canAddItem(Item.get(Integer.parseInt(id[0]), Integer.parseInt(id[1]), Integer.parseInt(id[2])))){
                     if(p.getInventory().getItem(slot).getCount() >= 2){
-                        p.getInventory().setItem(slot, Item.get(p.getInventory().getItem(slot).getId(), p.getInventory().getItem(slot).getDamage(), p.getInventory().getItem(slot).getCount() - Integer.parseInt(item[2])));
+                        p.getInventory().setItem(slot, Item.get(p.getInventory().getItem(slot).getId(), p.getInventory().getItem(slot).getDamage(), p.getInventory().getItem(slot).getCount() - Integer.parseInt(id[2])));
                         p.getInventory().addItem(Item.get(Integer.parseInt(item[0]), Integer.parseInt(item[1]), Integer.parseInt(item[2])));
                         p.sendMessage(Treatment.getInstance().getLanguage("end_treatment"));
                         inWaiting.remove(p);
