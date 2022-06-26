@@ -4,6 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.item.Item;
 import cn.nukkit.scheduler.PluginTask;
+import com.google.common.base.Strings;
 import fr.kazou.treatment.event.TreatmentTransformEvent;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class TreatmentTaskTransform extends PluginTask<Treatment> {
                inWaiting.remove(p);
                this.cancel();
            }
+           p.sendActionBar(getProgressBar(delay, Treatment.getInstance().time, Treatment.getInstance().time));
         }
 
         if(delay == Treatment.getInstance().time){
@@ -51,9 +53,11 @@ public class TreatmentTaskTransform extends PluginTask<Treatment> {
                         p.getInventory().setItem(slot, Item.get(p.getInventory().getItem(slot).getId(), p.getInventory().getItem(slot).getDamage(), p.getInventory().getItem(slot).getCount() - Integer.parseInt(id[2])));
                         p.getInventory().addItem(Item.get(Integer.parseInt(item[0]), Integer.parseInt(item[1]), Integer.parseInt(item[2])));
                         p.sendMessage(Treatment.getInstance().getLanguage("end_treatment"));
+                        p.sendActionBar(getProgressBar(delay, Treatment.getInstance().time, Treatment.getInstance().time));
                         inWaiting.remove(p);
                         this.cancel();
                     } else {
+                        p.sendActionBar(getProgressBar(delay, Treatment.getInstance().time, Treatment.getInstance().time));
                         p.getInventory().setItem(slot, Item.get(0));
                         p.getInventory().addItem(Item.get(Integer.parseInt(item[0]), Integer.parseInt(item[1]), Integer.parseInt(item[2])));
                         p.sendMessage(Treatment.getInstance().getLanguage("end_treatment"));
@@ -69,5 +73,13 @@ public class TreatmentTaskTransform extends PluginTask<Treatment> {
 
     public static boolean isWaiting(Player p){
         return inWaiting.contains(p);
+    }
+
+    public String getProgressBar(int current, int max, int totalBars) {
+        float percent = (float) current / max;
+        int progressBars = (int) (totalBars * percent);
+
+        return Strings.repeat("" + "§a" + "▮", progressBars)
+                + Strings.repeat("" + "§e" + "▮", totalBars - progressBars);
     }
 }
