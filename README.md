@@ -1,9 +1,9 @@
-# Treatment-Plugin
+# Treatment-Plugin OUTDATED
 Is a plugin for MCPE -> NukkitX.
 
 ## Installation 
 
-Click [here](https://nukkitx.com/resources/), official site of Nukkit, and download the .jar.
+Click [here](https://cloudburstmc.org/resources/treatment-plugin.492/), official site of Nukkit, and download the .jar.
 
 After put him in the folder "plugin".
 
